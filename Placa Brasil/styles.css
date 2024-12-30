@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.placa-container {
+    width: 173px;
+    height: 50px;
+    background-color: #ffffff;
+    border: 2px solid #000;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #0046ad;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 5px;
+    height: 12px; /* Define a altura do cabeçalho */
+}
+
+.header .bandeira {
+    width: 10px;
+}
+
+.header .pais {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header .mercosul-logo img {
+    width: 10px;
+}
+
+.placa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 12px;
+    height: 100%; /* Garante que a placa ocupe o restante do espaço */
+}
+
+.placa .letras {
+    color: #000;
+    margin-right: 3px;
+}
+
+.placa .numeros {
+    color: #d32f2f;
+}

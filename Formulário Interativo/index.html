@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Dinâmico</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Formulário Dinâmico</h1>
+<form id="dynamicForm">
+    <label for="role">Selecione o tipo de usuário:</label>
+    <select id="role" name="role" onchange="updateForm()">
+        <option value="">-- Selecione --</option>
+        <option value="usuario">Usuário</option>
+        <option value="tecnico">Técnico</option>
+        <option value="admin">Admin</option>
+    </select>
+
+    <!-- Campos para Usuário -->
+    <div id="usuarioFields" class="hidden">
+        <label for="nomeUsuario">Nome do Usuário:</label>
+        <input type="text" id="nomeUsuario" name="nomeUsuario">
+
+        <label for="emailUsuario">Email:</label>
+        <input type="email" id="emailUsuario" name="emailUsuario">
+    </div>
+
+    <!-- Campos para Técnico -->
+    <div id="tecnicoFields" class="hidden">
+        <label for="nomeTecnico">Nome do Técnico:</label>
+        <input type="text" id="nomeTecnico" name="nomeTecnico">
+
+        <label for="areaEspecialidade">Área de Especialidade:</label>
+        <input type="text" id="areaEspecialidade" name="areaEspecialidade">
+    </div>
+
+    <!-- Campos para Admin -->
+    <div id="adminFields" class="hidden">
+        <label for="nomeAdmin">Nome do Admin:</label>
+        <input type="text" id="nomeAdmin" name="nomeAdmin">
+
+        <label for="nivelAcesso">Nível de Acesso:</label>
+        <select id="nivelAcesso" name="nivelAcesso">
+            <option value="1">1 - Básico</option>
+            <option value="2">2 - Intermediário</option>
+            <option value="3">3 - Avançado</option>
+        </select>
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+    function updateForm() {
+        // Oculta todos os campos inicialmente
+        document.getElementById('usuarioFields').classList.add('hidden');
+        document.getElementById('tecnicoFields').classList.add('hidden');
+        document.getElementById('adminFields').classList.add('hidden');
+
+        // Mostra os campos com base na seleção
+        const role = document.getElementById('role').value;
+        if (role === 'usuario') {
+            document.getElementById('usuarioFields').classList.remove('hidden');
+        } else if (role === 'tecnico') {
+            document.getElementById('tecnicoFields').classList.remove('hidden');
+        } else if (role === 'admin') {
+            document.getElementById('adminFields').classList.remove('hidden');
+        }
+    }
+</script>
+</body>
+</html>

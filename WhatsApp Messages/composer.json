@@ -1,0 +1,15 @@
+{
+  "autoload" : {
+    "psr-4" : {
+      "Source\\" : "source/"
+    },
+    "files" : [
+      "source/Boot/Config.php"
+    ]
+  },
+  "require": {
+    "php" : ">=8.3",
+    "ext-pdo" : "*",
+    "ext-gd": "*"
+  }
+}

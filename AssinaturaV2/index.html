@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário com Assinatura</title>
+    <style>
+        #signature-pad {
+            border: 1px solid #000;
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+        }
+        #preview {
+            margin-top: 10px;
+            display: none;
+        }
+        #preview img {
+            border: 1px solid #000;
+            max-width: 100%;
+            height: auto;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Formulário com Assinatura</h2>
+
+<form action="processa_form.php" method="POST" enctype="multipart/form-data" id="form-assinatura">
+    Nome: <input type="text" name="nome" required><br><br>
+
+    <h3>Assine abaixo:</h3>
+    <canvas id="signature-pad"></canvas>
+
+    <div class="buttons">
+        <button type="button" onclick="clearCanvas()">Limpar Assinatura</button>
+        <button type="button" onclick="previewSignature()">Visualizar Assinatura</button>
+    </div>
+
+    <div id="preview">
+        <h4>Pré-visualização da Assinatura:</h4>
+        <img id="preview-image" alt="Pré-visualização da Assinatura">
+        <input type="hidden" name="assinatura" id="assinatura">
+        <br>
+        <button type="button" onclick="editSignature()">Editar Assinatura</button>
+        <button type="submit">Enviar Formulário</button>
+    </div>
+</form>
+
+<script>
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    const previewDiv = document.getElementById('preview');
+    const previewImage = document.getElementById('preview-image');
+    const assinaturaInput = document.getElementById('assinatura');
+    const form = document.getElementById('form-assinatura');
+
+    let drawing = false;
+
+    // Ajusta o tamanho do canvas
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+
+    function startDrawing(event) {
+        drawing = true;
+        const { offsetX, offsetY } = getEventPosition(event);
+        ctx.beginPath();
+        ctx.moveTo(offsetX, offsetY);
+    }
+
+    function draw(event) {
+        if (!drawing) return;
+        event.preventDefault();  // Evita scroll durante toque
+        const { offsetX, offsetY } = getEventPosition(event);
+        ctx.lineTo(offsetX, offsetY);
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    function stopDrawing() {
+        drawing = false;
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hidePreview();
+    }
+
+    // Obtem posição do evento (touch ou mouse)
+    function getEventPosition(event) {
+        if (event.touches && event.touches.length > 0) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                offsetX: event.touches[0].clientX - rect.left,
+                offsetY: event.touches[0].clientY - rect.top
+            };
+        } else {
+            return {
+                offsetX: event.offsetX,
+                offsetY: event.offsetY
+            };
+        }
+    }
+
+    // Gera a pré-visualização da assinatura
+    function previewSignature() {
+        const dataUrl = canvas.toDataURL('image/png');
+        previewImage.src = dataUrl;
+        assinaturaInput.value = dataUrl;  // Envia base64 no form
+        previewDiv.style.display = 'block';
+    }
+
+    // Oculta pré-visualização para voltar a editar
+    function hidePreview() {
+        previewDiv.style.display = 'none';
+    }
+
+    // Volta à edição da assinatura
+    function editSignature() {
+        hidePreview();
+    }
+
+    // Eventos de mouse
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+
+    // Eventos de toque (mobile)
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stopDrawing);
+    canvas.addEventListener('touchcancel', stopDrawing);
+</script>
+
+</body>
+</html>

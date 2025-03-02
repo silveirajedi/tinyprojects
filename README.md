@@ -11,6 +11,7 @@
 - Tabela Responsiva
 - Formulário Interativo
 - WhatsApp Messages [php]
+- Assinatura Versão 2 [php]
 
 ## Apache server for php projects
 

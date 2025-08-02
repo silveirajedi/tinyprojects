@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calendário de Visitas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .month {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .month h2 {
+            border-left: 5px solid #3498db;
+            padding-left: 10px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .client {
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background-color: #ecf0f1;
+            border-left: 4px solid #2ecc71;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .client:hover {
+            background-color: #dfe6e9;
+        }
+
+        .client strong {
+            color: #2c3e50;
+            font-size: 1em;
+        }
+
+        .visits {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📅 Calendário de Visitas</h1>
+
+<div class="grid-container">
+
+    <div class="month">
+        <h2>Janeiro</h2>
+        <div class="client">
+            <strong>Cliente A</strong>
+            <div class="visits">Kit Ordenha</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Fevereiro</h2>
+        <div class="client">
+            <strong>Cliente B</strong>
+            <div class="visits">Palestra, Revisão</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Março</h2>
+        <div class="client">
+            <strong>Cliente C</strong>
+            <div class="visits">Entrega de Equipamento</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Abril</h2>
+        <div class="client">
+            <strong>Cliente D</strong>
+            <div class="visits">CSS, Treinamento</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Maio</h2>
+        <div class="client">
+            <strong>Cliente E</strong>
+            <div class="visits">Palestra</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Junho</h2>
+        <div class="client">
+            <strong>Cliente F</strong>
+            <div class="visits">Kit Ordenha, Revisão Técnica</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Julho</h2>
+        <div class="client">
+            <strong>Cliente X</strong>
+            <div class="visits">Kit Ordenha, CSS, Palestra, teste, teste2, teste4</div>
+        </div>
+        <div class="client">
+            <strong>Cliente Y</strong>
+            <div class="visits">Palestra</div>
+        </div>
+        <div class="client">
+            <strong>Cliente Z</strong>
+            <div class="visits">Kit Ordenha</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Agosto</h2>
+        <div class="client">
+            <strong>Cliente X</strong>
+            <div class="visits">Revisão Técnica, Palestra</div>
+        </div>
+        <div class="client">
+            <strong>Cliente Y</strong>
+            <div class="visits">Entrega de Equipamentos</div>
+        </div>
+    </div>
+
+    <div class="month">
+        <h2>Agosto</h2>
+        <div class="client">
+            <strong>Cliente X</strong>
+            <div class="visits">Revisão Técnica, Palestra</div>
+        </div>
+        <div class="client">
+            <strong>Cliente Y</strong>
+            <div class="visits">Entrega de Equipamentos</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

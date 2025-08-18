@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tabela Laticínios • CCS/CBT por mês</title>
+    <style>
+        :root{
+            --bg: #0b1020;
+            --card: #121a33;
+            --muted: #8ea1b2;
+            --text: #e9eef5;
+            --accent: #67e8f9;
+            --accent-2: #a78bfa;
+            --border: #223055;
+            --row-alt: #0f1630;
+            --focus: 0 0 0 3px rgba(103,232,249,0.35);
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial;
+            background: radial-gradient(1200px 800px at 10% -10%, #1b2550 0%, transparent 60%),
+            radial-gradient(900px 600px at 110% 0%, #2a1a5a 0%, transparent 50%),
+            var(--bg);
+            color: var(--text);
+        }
+        .wrapper{max-width:1200px; margin-inline:auto; padding:24px}
+
+        .title{
+            display:flex; gap:12px; align-items:center; margin: 6px 0 18px;
+        }
+        .title h1{font-size: clamp(20px, 3vw, 28px); margin:0; letter-spacing:0.2px}
+        .title small{color:var(--muted)}
+
+        .card{background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+            backdrop-filter: blur(6px); border:1px solid var(--border); border-radius:18px; box-shadow: 0 10px 30px rgba(0,0,0,0.25)}
+
+        .controls{display:flex; flex-wrap:wrap; gap:12px; padding:14px; align-items:center}
+        .controls .field{position:relative}
+        .controls input, .controls select{
+            background: var(--card); border:1px solid var(--border); color:var(--text);
+            padding:10px 12px; border-radius:12px; outline:none; min-width: 200px;
+        }
+        .controls input:focus, .controls select:focus{box-shadow: var(--focus); border-color: var(--accent)}
+        .controls .spacer{flex:1}
+        .btn{
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color:#0b1020; border:0; font-weight:700; padding:10px 14px; border-radius:12px; cursor:pointer;
+        }
+        .btn.ghost{background: transparent; color: var(--text); border:1px solid var(--border)}
+        .btn:focus{box-shadow: var(--focus)}
+
+        /* Table wrapper */
+        .table-wrap{position:relative; margin-top:14px; border-radius:18px; overflow:hidden}
+        .table-scroll{overflow:auto; max-height: 70vh; background: var(--card)}
+        .gradient-left, .gradient-right{
+            position:absolute; top:0; bottom:0; width:28px; pointer-events:none; opacity:0; transition:opacity .2s ease;
+        }
+        .gradient-left{left:0; background: linear-gradient(90deg, var(--bg), transparent)}
+        .gradient-right{right:0; background: linear-gradient(270deg, var(--bg), transparent)}
+
+        table{border-collapse:separate; border-spacing:0; width:100%; font-size: 14px}
+        thead th{position: sticky; top:0; background: #0f1a3a; color: #cfe5ff; z-index:4; text-align:left; padding:10px 12px; border-bottom:1px solid var(--border)}
+        tbody td{padding:10px 12px; border-bottom:1px solid var(--border)}
+        tbody tr:nth-child(even){background: var(--row-alt)}
+        tbody tr:hover{background: #15224a}
+
+        /* Sticky first columns */
+        .sticky-1{position:sticky; left:0; z-index:3; background: inherit}
+        .sticky-2{position:sticky; left:180px; z-index:3; background: inherit}
+        .sticky-3{position:sticky; left:380px; z-index:3; background: inherit}
+        .col-lat{min-width:180px}
+        .col-prod{min-width:200px}
+        .col-dado{min-width:180px}
+        .col-mes{min-width:90px; text-align:center}
+
+        .dado-pill{
+            display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; font-weight:700;
+            background: rgba(103,232,249,0.12); color:#8be9ff; border:1px solid rgba(103,232,249,0.35)
+        }
+        .dado-pill[data-kind="CBT"]{background: rgba(167,139,250,0.12); color:#cbb2ff; border-color: rgba(167,139,250,0.35)}
+
+        /* Group header rows */
+        .group-row td{background:#0d1736; border-bottom-color:#1b2b62}
+        .group-toggle{display:inline-flex; align-items:center; gap:8px; cursor:pointer; user-select:none}
+        .chev{width:14px; height:14px; transition: transform .2s ease}
+        .group-row[aria-expanded="true"] .chev{transform: rotate(90deg)}
+
+        /* Responsive improvements */
+        @media (max-width: 900px){
+            .controls input, .controls select{min-width:unset}
+            .sticky-2{left:160px}
+            .sticky-3{left:340px}
+            .col-lat{min-width:160px}
+            .col-prod{min-width:180px}
+            .col-dado{min-width:180px}
+            .col-mes{min-width:80px}
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="title">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7c0-1.105.895-2 2-2h3c.79 0 1.5.46 1.828 1.172L12 8h6a2 2 0 0 1 2 2v5c0 1.105-.895 2-2 2H6a2 2 0 0 1-2-2V7Z" stroke="url(#g)" stroke-width="1.5"/>
+            <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#67e8f9"/><stop offset="1" stop-color="#a78bfa"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div>
+            <h1>Tabela de Laticínios • CCS e CBT (jan–dez)</h1>
+            <small>Layout moderno e responsivo, com cabeçalhos fixos e filtros.</small>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card controls" role="region" aria-label="Filtros da tabela">
+        <div class="field">
+            <input id="q" type="search" placeholder="Buscar por laticínio ou produtor…" aria-label="Buscar" />
+        </div>
+        <div class="field">
+            <select id="filter-lat" aria-label="Filtrar por laticínio">
+                <option value="">Todos os laticínios</option>
+            </select>
+        </div>
+        <div class="field">
+            <select id="filter-dado" aria-label="Filtrar por dado (CCS/CBT)">
+                <option value="">CCS e CBT</option>
+                <option value="CCS">Somente CCS</option>
+                <option value="CBT">Somente CBT</option>
+            </select>
+        </div>
+        <div class="spacer"></div>
+        <button id="btn-expand" class="btn ghost" type="button">Expandir tudo</button>
+        <button id="btn-collapse" class="btn ghost" type="button">Recolher tudo</button>
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-wrap card">
+        <div class="gradient-left" aria-hidden="true"></div>
+        <div class="gradient-right" aria-hidden="true"></div>
+        <div class="table-scroll" id="scroll">
+            <table id="tabela">
+                <thead>
+                <tr>
+                    <th class="sticky-1 col-lat">Laticínio</th>
+                    <th class="sticky-2 col-prod">Produtor</th>
+                    <th class="sticky-3 col-dado">Dado</th>
+                    <th class="col-mes">Jan</th>
+                    <th class="col-mes">Fev</th>
+                    <th class="col-mes">Mar</th>
+                    <th class="col-mes">Abr</th>
+                    <th class="col-mes">Mai</th>
+                    <th class="col-mes">Jun</th>
+                    <th class="col-mes">Jul</th>
+                    <th class="col-mes">Ago</th>
+                    <th class="col-mes">Set</th>
+                    <th class="col-mes">Out</th>
+                    <th class="col-mes">Nov</th>
+                    <th class="col-mes">Dez</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- As linhas serão geradas via JS a partir de "dados" -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ======= Dados de exemplo (substitua depois pelos seus) =======
+    const dados = [
+        {
+            laticinio: 'Laticínio A',
+            produtores: [
+                { nome: 'Produtor 1', CCS: [320, 280, 310, 290, 330, 300, 310, 320, 305, 295, 310, 300], CBT: [18, 20, 19, 21, 17, 20, 22, 19, 21, 18, 20, 19] },
+                { nome: 'Produtor 2', CCS: [260, 270, 265, 250, 255, 245, 260, 275, 268, 272, 265, 259], CBT: [14, 16, 15, 15, 14, 13, 16, 17, 15, 14, 16, 15] },
+            ]
+        },
+        {
+            laticinio: 'Laticínio B',
+            produtores: [
+                { nome: 'Produtor 3', CCS: [240, 250, 245, 255, 240, 250, 260, 255, 250, 245, 260, 255], CBT: [12, 13, 12, 14, 13, 12, 14, 13, 12, 14, 13, 12] },
+                { nome: 'Produtor 4', CCS: [300, 295, 305, 290, 285, 295, 300, 310, 305, 295, 300, 290], CBT: [20, 19, 21, 18, 19, 20, 22, 21, 20, 19, 21, 20] },
+            ]
+        },
+        {
+            laticinio: 'Laticínio C',
+            produtores: [
+                { nome: 'Produtor 5', CCS: [210, 215, 220, 225, 230, 235, 240, 245, 250, 255, 260, 265], CBT: [10, 11, 10, 12, 11, 10, 12, 11, 10, 11, 12, 11] }
+            ]
+        }
+    ];
+
+    // ======= Utilidades =======
+    const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+    function createCell(content, classes=''){
+        const td = document.createElement('td');
+        td.className = classes; td.textContent = content; return td;
+    }
+    function createPill(kind){
+        const span = document.createElement('span');
+        span.className = 'dado-pill';
+        span.dataset.kind = kind;
+        span.textContent = kind;
+        return span;
+    }
+
+    // ======= Renderização da tabela =======
+    const tbody = document.querySelector('#tabela tbody');
+
+    function renderTable(data){
+        tbody.innerHTML = '';
+        data.forEach(grupo => {
+            // Linha de grupo (laticínio)
+            const trg = document.createElement('tr');
+            trg.className = 'group-row';
+            trg.setAttribute('aria-expanded', 'true');
+            trg.dataset.group = grupo.laticinio;
+
+            const tdg1 = document.createElement('td');
+            tdg1.className = 'sticky-1 col-lat';
+            const toggle = document.createElement('span');
+            toggle.className = 'group-toggle';
+            toggle.innerHTML = '<svg class="chev" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' + grupo.laticinio;
+            tdg1.appendChild(toggle);
+
+            const tdg2 = createCell('—', 'sticky-2 col-prod');
+            const tdg3 = createCell('—', 'sticky-3 col-dado');
+            meses.forEach(()=> trg.appendChild(document.createElement('td')));
+            trg.prepend(tdg3); trg.prepend(tdg2); trg.prepend(tdg1);
+            tbody.appendChild(trg);
+
+            // Linhas de produtores (CCS e CBT)
+            grupo.produtores.forEach(prod => {
+                ['CCS','CBT'].forEach(kind => {
+                    const tr = document.createElement('tr');
+                    tr.dataset.group = grupo.laticinio;
+                    tr.dataset.laticinio = grupo.laticinio.toLowerCase();
+                    tr.dataset.produtor = prod.nome.toLowerCase();
+                    tr.dataset.dado = kind;
+
+                    const td1 = createCell(grupo.laticinio, 'sticky-1 col-lat');
+                    const td2 = createCell(prod.nome, 'sticky-2 col-prod');
+                    const td3 = document.createElement('td');
+                    td3.className = 'sticky-3 col-dado';
+                    td3.appendChild(createPill(kind));
+
+                    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+
+                    const arr = kind === 'CCS' ? prod.CCS : prod.CBT;
+                    meses.forEach((m,i)=>{
+                        const td = document.createElement('td');
+                        td.className = 'col-mes';
+                        td.textContent = (arr && arr[i] != null) ? arr[i] : '—';
+                        tr.appendChild(td);
+                    });
+
+                    tbody.appendChild(tr);
+                });
+            });
+        });
+    }
+
+    // ======= Filtros =======
+    const q = document.getElementById('q');
+    const selLat = document.getElementById('filter-lat');
+    const selDado = document.getElementById('filter-dado');
+
+    function populateLatOptions(){
+        const set = new Set(dados.map(d=>d.laticinio));
+        const frag = document.createDocumentFragment();
+        set.forEach(l => { const o = document.createElement('option'); o.value = l; o.textContent = l; frag.appendChild(o); });
+        selLat.appendChild(frag);
+    }
+
+    function applyFilters(){
+        const term = q.value.trim().toLowerCase();
+        const lat = selLat.value.toLowerCase();
+        const dado = selDado.value;
+
+        // Esconde/mostra linhas conforme filtros
+        Array.from(tbody.querySelectorAll('tr')).forEach(tr => {
+            if(tr.classList.contains('group-row')) return; // pula cabeçalho do grupo
+            const matchText = (tr.dataset.laticinio.includes(term) || tr.dataset.produtor.includes(term) || term === '');
+            const matchLat = (lat === '' || tr.dataset.laticinio === lat);
+            const matchDado = (dado === '' || tr.dataset.dado === dado);
+            const show = matchText && matchLat && matchDado;
+            tr.style.display = show ? '' : 'none';
+        });
+
+        // Se um grupo não tem filhos visíveis, esconda o cabeçalho do grupo
+        tbody.querySelectorAll('.group-row').forEach(gr => {
+            const g = gr.dataset.group.toLowerCase();
+            const any = Array.from(tbody.querySelectorAll(`tr[data-group="${gr.dataset.group}"]`))
+                .some(tr => !tr.classList.contains('group-row') && tr.style.display !== 'none');
+            gr.style.display = any ? '' : 'none';
+        });
+    }
+
+    q.addEventListener('input', applyFilters);
+    selLat.addEventListener('change', applyFilters);
+    selDado.addEventListener('change', applyFilters);
+
+    // ======= Expandir/Recolher grupos =======
+    function setGroupExpanded(groupRow, expanded){
+        groupRow.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        const name = groupRow.dataset.group;
+        tbody.querySelectorAll(`tr[data-group="${name}"]`).forEach(tr => {
+            if(!tr.classList.contains('group-row')) tr.style.display = expanded ? '' : 'none';
+        });
+    }
+
+    tbody.addEventListener('click', (e)=>{
+        const el = e.target.closest('.group-toggle');
+        if(!el) return;
+        const row = e.target.closest('tr');
+        const expanded = row.getAttribute('aria-expanded') === 'true';
+        setGroupExpanded(row, !expanded);
+    });
+
+    document.getElementById('btn-expand').addEventListener('click', ()=>{
+        tbody.querySelectorAll('.group-row').forEach(r => setGroupExpanded(r, true));
+        applyFilters();
+    });
+    document.getElementById('btn-collapse').addEventListener('click', ()=>{
+        tbody.querySelectorAll('.group-row').forEach(r => setGroupExpanded(r, false));
+    });
+
+    // ======= Gradientes laterais ao rolar =======
+    const scroller = document.getElementById('scroll');
+    const gl = document.querySelector('.gradient-left');
+    const gr = document.querySelector('.gradient-right');
+    function updateShadows(){
+        const {scrollLeft, scrollWidth, clientWidth} = scroller;
+        gl.style.opacity = scrollLeft > 0 ? 1 : 0;
+        gr.style.opacity = scrollLeft + clientWidth < scrollWidth ? 1 : 0;
+    }
+    scroller.addEventListener('scroll', updateShadows);
+
+    // ======= Inicialização =======
+    renderTable(dados);
+    populateLatOptions();
+    applyFilters();
+    updateShadows();
+</script>
+</body>
+</html>

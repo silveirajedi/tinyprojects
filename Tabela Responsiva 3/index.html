@@ -11,216 +11,134 @@
 <div class="table-container">
     <h1>Análise de Dados de Laticínios</h1>
 
-    <div class="laticinio-section">
-        <h2>Laticínio A</h2>
-        <table class="analises">
-            <thead>
-            <tr>
-                <th rowspan="2">Produtor</th>
-                <th colspan="2">Jan</th>
-                <th colspan="2">Fev</th>
-                <th colspan="2">Mar</th>
-                <th colspan="2">Abr</th>
-                <th colspan="2">Mai</th>
-                <th colspan="2">Jun</th>
-                <th colspan="2">Jul</th>
-                <th colspan="2">Ago</th>
-                <th colspan="2">Set</th>
-                <th colspan="2">Out</th>
-                <th colspan="2">Nov</th>
-                <th colspan="2">Dez</th>
-            </tr>
-            <tr>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Zé da Silva</td>
-                <td>155</td>
-                <td>20</td>
-                <td>160</td>
-                <td>21</td>
-                <td>158</td>
-                <td>23</td>
-                <td>162</td>
-                <td>20</td>
-                <td>157</td>
-                <td>22</td>
-                <td>159</td>
-                <td>21</td>
-                <td>161</td>
-                <td>23</td>
-                <td>163</td>
-                <td>20</td>
-                <td>158</td>
-                <td>22</td>
-                <td>160</td>
-                <td>21</td>
-                <td>162</td>
-                <td>23</td>
-                <td>164</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td>Produtor B</td>
-                <td>185</td>
-                <td>25</td>
-                <td>190</td>
-                <td>26</td>
-                <td>188</td>
-                <td>28</td>
-                <td>192</td>
-                <td>25</td>
-                <td>187</td>
-                <td>27</td>
-                <td>189</td>
-                <td>26</td>
-                <td>191</td>
-                <td>28</td>
-                <td>193</td>
-                <td>25</td>
-                <td>188</td>
-                <td>27</td>
-                <td>190</td>
-                <td>26</td>
-                <td>192</td>
-                <td>28</td>
-                <td>194</td>
-                <td>25</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="controls">
+        <button id="expandAll">Expandir Todos</button>
+        <button id="collapseAll">Recolher Todos</button>
     </div>
 
     <div class="laticinio-section">
-        <h2>Laticínio B</h2>
-        <table class="analises">
-            <thead>
-            <tr>
-                <th rowspan="2">Produtor</th>
-                <th colspan="2">Jan</th>
-                <th colspan="2">Fev</th>
-                <th colspan="2">Mar</th>
-                <th colspan="2">Abr</th>
-                <th colspan="2">Mai</th>
-                <th colspan="2">Jun</th>
-                <th colspan="2">Jul</th>
-                <th colspan="2">Ago</th>
-                <th colspan="2">Set</th>
-                <th colspan="2">Out</th>
-                <th colspan="2">Nov</th>
-                <th colspan="2">Dez</th>
-            </tr>
-            <tr>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-                <th>CCS</th>
-                <th>CBT</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Produtor C</td>
-                <td>145</td>
-                <td>18</td>
-                <td>150</td>
-                <td>19</td>
-                <td>152</td>
-                <td>17</td>
-                <td>148</td>
-                <td>19</td>
-                <td>150</td>
-                <td>18</td>
-                <td>155</td>
-                <td>20</td>
-                <td>153</td>
-                <td>19</td>
-                <td>157</td>
-                <td>21</td>
-                <td>152</td>
-                <td>18</td>
-                <td>154</td>
-                <td>20</td>
-                <td>156</td>
-                <td>19</td>
-                <td>158</td>
-                <td>21</td>
-            </tr>
-            <tr>
-                <td>Produtor D</td>
-                <td>170</td>
-                <td>25</td>
-                <td>175</td>
-                <td>26</td>
-                <td>173</td>
-                <td>24</td>
-                <td>178</td>
-                <td>27</td>
-                <td>172</td>
-                <td>25</td>
-                <td>176</td>
-                <td>26</td>
-                <td>179</td>
-                <td>27</td>
-                <td>175</td>
-                <td>26</td>
-                <td>177</td>
-                <td>28</td>
-                <td>174</td>
-                <td>25</td>
-                <td>178</td>
-                <td>27</td>
-                <td>180</td>
-                <td>26</td>
-            </tr>
-            </tbody>
-        </table>
+        <button class="accordion">Laticínio A</button>
+        <div class="panel">
+            <table class="analises">
+                <thead>
+                <tr>
+                    <th rowspan="2">Produtor</th>
+                    <th colspan="2">Jan</th>
+                    <th colspan="2">Fev</th>
+                    <th colspan="2">Mar</th>
+                    <th colspan="2">Abr</th>
+                    <th colspan="2">Mai</th>
+                    <th colspan="2">Jun</th>
+                    <th colspan="2">Jul</th>
+                    <th colspan="2">Ago</th>
+                    <th colspan="2">Set</th>
+                    <th colspan="2">Out</th>
+                    <th colspan="2">Nov</th>
+                    <th colspan="2">Dez</th>
+                </tr>
+                <tr>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Produtor A</td>
+                    <td>155</td><td>20</td><td>160</td><td>21</td><td>158</td><td>23</td><td>162</td><td>20</td><td>157</td><td>22</td><td>159</td><td>21</td><td>161</td><td>23</td><td>163</td><td>20</td><td>158</td><td>22</td><td>160</td><td>21</td><td>162</td><td>23</td><td>164</td><td>20</td>
+                </tr>
+                <tr>
+                    <td>Produtor B</td>
+                    <td>185</td><td>25</td><td>190</td><td>26</td><td>188</td><td>28</td><td>192</td><td>25</td><td>187</td><td>27</td><td>189</td><td>26</td><td>191</td><td>28</td><td>193</td><td>25</td><td>188</td><td>27</td><td>190</td><td>26</td><td>192</td><td>28</td><td>194</td><td>25</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="laticinio-section">
+        <button class="accordion">Laticínio B</button>
+        <div class="panel">
+            <table class="analises">
+                <thead>
+                <tr>
+                    <th rowspan="2">Produtor</th>
+                    <th colspan="2">Jan</th>
+                    <th colspan="2">Fev</th>
+                    <th colspan="2">Mar</th>
+                    <th colspan="2">Abr</th>
+                    <th colspan="2">Mai</th>
+                    <th colspan="2">Jun</th>
+                    <th colspan="2">Jul</th>
+                    <th colspan="2">Ago</th>
+                    <th colspan="2">Set</th>
+                    <th colspan="2">Out</th>
+                    <th colspan="2">Nov</th>
+                    <th colspan="2">Dez</th>
+                </tr>
+                <tr>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                    <th>CCS</th>
+                    <th>CBT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Produtor C</td>
+                    <td>145</td><td>18</td><td>150</td><td>19</td><td>152</td><td>17</td><td>148</td><td>19</td><td>150</td><td>18</td><td>155</td><td>20</td><td>153</td><td>19</td><td>157</td><td>21</td><td>152</td><td>18</td><td>154</td><td>20</td><td>156</td><td>19</td><td>158</td><td>21</td>
+                </tr>
+                <tr>
+                    <td>Produtor D</td>
+                    <td>170</td><td>25</td><td>175</td><td>26</td><td>173</td><td>24</td><td>178</td><td>27</td><td>172</td><td>25</td><td>176</td><td>26</td><td>179</td><td>27</td><td>175</td><td>26</td><td>177</td><td>28</td><td>174</td><td>25</td><td>178</td><td>27</td><td>180</td><td>26</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
